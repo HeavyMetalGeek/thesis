@@ -1,0 +1,156 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     pimpleFoam;
+
+startFrom       latestTime;
+
+startTime		0;
+
+stopAt          endTime;
+
+endTime			5000;
+
+deltaT			0.1;
+
+writeControl	runTime;
+
+writeInterval	5000;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+functions
+{
+    //#include "readFields"
+    //#include "skewness"
+    //#include "kurtosis"
+    //#include "probes"
+    
+    centerProbe
+    {
+        type                    probes;
+        functionObjectLibs      ("libsampling.so");
+        outputControl           timeStep;
+        outputInterval          1;
+        probeLocations
+        (
+            (625 400 400)
+            (625 0.51064 400)
+        );
+
+        fields
+        (
+            U
+        );
+    }
+    
+   
+    vertProbe
+    {
+        type                    probes;
+        functionObjectLibs      ("libsampling.so");
+        outputControl           timeStep;
+        outputInterval          1;
+        probeLocations
+        (
+            #include "probeLocations.dat"
+        );
+
+        fields
+        (
+            U
+        );
+    }
+    
+    /*
+    fieldAverage1
+    {
+        type            fieldAverage;
+        functionObjectLibs ( "libfieldFunctionObjects.so" );
+        enabled         false;
+        outputControl   timeStep;
+        outputInterval  1;
+
+        fields
+        (
+            U
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+
+            p
+            {
+                mean        on;
+                prime2Mean  on;
+                base        time;
+            }
+        );
+    }
+
+    yPlus
+    {
+    	type patchExpression;
+    	patches ( bottomWall );
+    	outputControlMode timeStep;
+    	outputInterval 1;
+    	expression "dist()/nu*sqrt((nu+nut)*mag(snGrad(U)))";
+    	verbose true;
+    	accumulations ( average );
+    }
+
+    U0
+    {
+    	type swakExpression;
+    	valueType surface;
+    	outputControlMode timeStep;
+    	outputInterval 1;
+    	surfaceName "centerSurface";
+    	surface
+    	{
+    		type plane;
+    		basePoint ( 1 1 1 );
+    		normalVector ( 0 1 0 );
+    		interpolate true;
+    	}
+    	expression "U.x";
+    	accumulations ( average );
+    }
+}
+*/
+
+libs (
+	"libOpenFOAM.so"
+	"libsimpleFunctionObjects.so"
+	"libsimpleSwakFunctionObjects.so"
+	"libswakFunctionObjects.so"
+);
+
+// ************************************************************************* //
