@@ -1,4 +1,4 @@
-<center>**NIST Technical Note 1944 - Reproduction Attempt #1**</center>
+**NIST Technical Note 1944 - Reproduction Attempt #1**
 
 ----------
 This repository contains the OpenFOAM case files used in my first attempt to reproduce the results of Dr. Liang Shi and Dr. DongHun Yeo within the NIST Technical Note 1944.
