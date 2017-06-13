@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      perturbUDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "../0/include/physicalParameters"
+
+// Select the flow type: ABL or channel
+ifABL           true;
+
+// Streamwise component of flow: 0=x, 1=y, 2=z
+streamwise      0;
+
+// Spanwise component of flow: 0=x, 1=y, 2=z
+spanwise        1;
+
+// Height of ABL, in the wall-normal direction
+h               1.0;
+
+// Lx
+lx              2.0;
+
+// Ly
+ly              1.0;
+
+// Set (overwrite) velocity to laminar profile
+setBulk         true;
+
+// Perturb velocity with some cosine-like perturbations
+perturb         true;
+
+// Perturbation properties
+// Streamwise perturbation amplitude as fraction of Utop
+duFactor        0.1;
+// Spanwise perturbation wavenumber
+beta            4;
+// Streamwise perturbation wavenumber
+alpha           4;
+// Maximal location of wall-normal decay funtion, as a fraction of h
+zmaxFactor      0.05;
+
+// ************************************************************************* //

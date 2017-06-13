@@ -1,0 +1,13 @@
+#!/bin/bash
+myBin="/user/f325j839/OpenFOAM/OpenFOAM-3.0.0/bin"
+SIM_START=0
+SIM_END=200
+WRITE_INTERVAL=200
+
+#String variables for controlDict
+CD_deltaT="deltaT\t\t\t0.1;"
+CD_writeControl="writeControl\tadjustableRunTime;"
+CD_writeInterval="writeInterval\t$WRITE_INTERVAL;"
+
+#reconstructPar time interval
+RECON_TIMES=${SIM_START}':'${SIM_END}
