@@ -20,9 +20,17 @@ Dr. Shi and Dr. Yeo created a utility, based off the work of Schoppa and Hussain
 Periodic boundary conditions are applied in all horizontal directions for all quantities.  For velocity, a slip condition is applied at the top and a no-slip condition is applied at the ground.  For pressure, a zero-gradient condition is applied at both the top and the ground.  These conditions do not vary from the NIST paper.  However, the Dr. Shi and Dr. Yeo utilized a wall function from Schumann.  There is no wall function applied in my simulation.
 
 ### Solver
-The solver created for the NIST paper is based off *pimpleFOAM*, a solver packaged with OpenFOAM.  However, extra features were added by Dr. Shi and Dr. Yeo for additional statistical processing.  They also used the one-equation eddy viscosity SGS model, *kEqn/oneEqEddy*, but implemented a custom wall function based off Schumann LES model.  I started the simulation with no wall function, but implemented the *nutkWallFunction* after having difficulty developing turbulence.
+The solver created for the NIST paper is based off *pimpleFOAM*, a solver packaged with OpenFOAM.  However, extra features were added by Dr. Shi and Dr. Yeo for additional statistical processing.  They also used the one-equation eddy viscosity SGS model, *kEqn/oneEqEddy*, but implemented a custom wall function introduced by Schumann.  I started the simulation with no wall function, but implemented the *nutkWallFunction* after having difficulty developing turbulence.
 
 ### Momentum Source
 A momentum source is used to ensure the flow contains enough energy to develop and maintain turbulence.  Dr. Shi and Dr. Yeo created a custom *fvOption* called *constGradPForce*, which maintains a constant pressure gradient along the streamwise direction.  My simulation utilizes the *fvOption* called *meanVelocityForce*, which adjusts the pressure field in order to maintain a specified bulk velocity (27 m/s, in this case).
 
 The *fvSolution* file was adjusted to match the NIST paper specifications, where time discretization is performed by the implicit Crank-Nicolson scheme, using a coefficient of 0.5.  Pressure is solved by the generalized geometric-algebraic multi-grid (GAMG) algorithm.  Velocity is solved by the preconditioned bi-conjugate gradient solver for asymmetric matrices (PBiCG) algorithm, using the simplified diagonal-based incomplete LU (DILU) preconditioner.  The use of DILU was not explicitly mentioned in the NIST paper.
+
+References
+----------
+- [Shi, L. and Yeo, D., 2016, "OpenFOAM Large-Eddy Simulations of Atmospheric Boundary Layer Turbulence for Wind Engineering Applications," Technical Note 1944, NIST. ][2]
+- [Schumann, J. Comput. Phys. __18__, 376-404, 1975.][5]
+
+[2]: https://dx.doi.org/10.6028/NIST.TN.1944
+[5]: http://www.sciencedirect.com/science/article/pii/0021999175900935

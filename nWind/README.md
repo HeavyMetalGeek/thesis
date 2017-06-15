@@ -25,3 +25,9 @@ Mr. Stovall utilized the *oodles* solver, which has been replaced by the *pimple
 
 ### Momentum Source
 A momentum source is used to ensure the flow contains enough energy to develop and maintain turbulence.  My simulation utilizes the *fvOption* called *meanVelocityForce*, which adjusts the pressure field in order to maintain a specified bulk velocity (3 m/s, in this case).  To my knowledge, stovall did not use a momentum source.  However, he did use "roughness blocks" to increase turbulence intensity.
+
+References
+----------
+- [Stovall, T., 2009, "Simulations of Wind Turbine Wake Interactions in OpenFOAM," M.S. thesis, Dept. Mech. Eng., Univ. CO.][1]
+
+[1]: http://gradworks.umi.com/14/69/1469025.html
