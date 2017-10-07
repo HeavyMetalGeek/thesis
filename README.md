@@ -15,8 +15,8 @@ Cases
 References
 ----------
 - [Stovall, T., 2009, "Simulations of Wind Turbine Wake Interactions in OpenFOAM," M.S. thesis, Dept. Mech. Eng., Univ. CO.][1]
-- [Shi, L. and Yeo, D., 2016, "OpenFOAM Large-Eddy Simulations of Atmospheric Boundary Layer Turbulence for Wind Engineering Applications," Technical Note 1944, NIST. ][2]
-- [Shi, L. and Yeo, D., 2017, "Large Eddy Simulations of Model-Scale Turbulent Atmospheric Boundary Layer Flows, J. Eng. Mech, __143__(9)][3]
+- [Shi, L. and Yeo, D., 2016, "OpenFOAM Large-Eddy Simulations of Atmospheric Boundary Layer Turbulence for Wind Engineering Applications," Technical Note 1944, NIST.][2]
+- [Shi, L. and Yeo, D., 2017, "Large Eddy Simulations of Model-Scale Turbulent Atmospheric Boundary Layer Flows, J. Eng. Mech, __143__(9).][3]
 - [Wichita State University HiPeCC][4]
 
 [1]: http://gradworks.umi.com/14/69/1469025.html

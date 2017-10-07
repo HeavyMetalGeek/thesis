@@ -25,11 +25,11 @@ sed -i "s/writeInterval[[:space:]].*/${CD_writeInterval}/" ${CTL_DICT} &&
 # Get application directory
 application=`getApplication`
 
-runApplication blockMesh
+#runApplication blockMesh
 
 #- Run parallel
-runApplication decomposePar -cellDist
+#runApplication decomposePar -cellDist
 
-$myBin/myFoamJob -p -s pimpleFoam #>> log.mine 2>&1
+$myBin/myFoamJob -p -s pimpleFoamWind #>> log.mine 2>&1
 runApplication reconstructPar -time ${SIM_START}:
 

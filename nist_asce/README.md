@@ -11,6 +11,6 @@ Overview
 
 References
 ----------
-- [Shi, L. and Yeo, D., 2017, "Large Eddy Simulations of Model-Scale Turbulent Atmospheric Boundary Layer Flows, J. Eng. Mech, __143__(9)][3]
+- [Shi, L. and Yeo, D., 2017, "Large Eddy Simulations of Model-Scale Turbulent Atmospheric Boundary Layer Flows, J. Eng. Mech, __143__(9).][3]
 
-[3]: ttp://ascelibrary.org/doi/abs/10.1061/(ASCE)EM.1943-7889.0001281
+[3]: http://ascelibrary.org/doi/abs/10.1061/(ASCE)EM.1943-7889.0001281
