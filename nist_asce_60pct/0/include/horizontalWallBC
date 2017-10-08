@@ -1,0 +1,19 @@
+inlet
+{
+    type        cyclic;
+}
+
+outlet
+{
+    type        cyclic;
+}
+
+sidewall1
+{
+    type        cyclic;
+}
+
+sidewall2
+{
+    type        cyclic;
+}

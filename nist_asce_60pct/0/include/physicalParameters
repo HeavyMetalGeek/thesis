@@ -1,0 +1,5 @@
+U0          (10.0 0.0 0.0);
+KAPPA       0.41;
+Z0          0.00003;
+
+#inputMode  merge

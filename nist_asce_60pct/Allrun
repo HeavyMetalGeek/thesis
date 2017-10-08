@@ -1,0 +1,35 @@
+#!/bin/bash
+#PBS -m e
+#PBS -N nist_asce
+#PBS -q special -l select=4:ncpus=32:athena=True:mpiprocs=32:mem=60gb
+#echo 'Setting OpenFOAM variables'
+#source /apps/OpenFOAM/OpenFOAM-3.0.0/etc/bashrc
+#PATH=$PATH:/user/f325j839/OpenFOAM/OpenFOAM-3.0.0/bin
+CASE_DIR=$FOAM_RUN/nist_60pct
+CTL_DICT=$CASE_DIR/system/controlDict
+source $CASE_DIR/sim_vars
+
+#cd $CASE_DIR
+#cp $PBS_NODEFILE $CASE_DIR/hostfile
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+#Insert startTime and endTime into controlDict
+sed -i "s/startTime[[:space:]].*/startTime\t\t${SIM_START};/" ${CTL_DICT} &&
+sed -i "s/endTime[[:space:]].*/endTime\t\t\t${SIM_END};/" ${CTL_DICT} &&
+sed -i "s/deltaT[[:space:]].*/${CD_deltaT}/" ${CTL_DICT} &&
+sed -i "s/writeControl[[:space:]].*/${CD_writeControl}/" ${CTL_DICT} &&
+sed -i "s/writeInterval[[:space:]].*/${CD_writeInterval}/" ${CTL_DICT} &&
+
+# Get application directory
+application=`getApplication`
+
+#runApplication blockMesh
+
+#- Run parallel
+#runApplication decomposePar -cellDist
+
+runParallel $application 6
+runApplication reconstructPar -time ${SIM_START}:
+
