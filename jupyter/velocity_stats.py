@@ -152,7 +152,7 @@ class VelocityData:
                 obj_im = obj[-self.N:]
                 acov = np.array(obj_i) * np.array(obj_im)
                 var = np.array(obj_i)**2
-                acorr.append(acov.sum() / var.sum())
+                acorr.append(acov.sum() / var.sum() * self.N)
         except:
             self.debug(0, "EXCEPTION: error within summation loop")
         return np.array(acorr)
