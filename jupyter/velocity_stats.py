@@ -97,11 +97,11 @@ class VelocityData:
                 self.debug_lvl = val
         
     def autocorr(self, summation=True, **kwargs):
-        # Start with complete data set
-        self.reset_data()
-        
         # Process kwargs
         self.kwarg_handler(**kwargs)
+
+        # Start with complete data set
+        self.reset_data()
 
         # Handle missing values for functions
         # Add capability for custom functions
@@ -134,38 +134,40 @@ class VelocityData:
         if (self.lag > self.N):
             self.lag = self.N
             self.debug(2, "Value for lag reduced to {}".format(self.lag))
-        self.resize_data(-(self.N + self.lag))
+        self.resize_data(-self.lag)
+        self.debug(2, "Data reduced to {} points".format(self.lag))
         
         self.Rxx = self.autocorr_sum_func(self.up)
-        self.debug(2, "Rxx computation complete")
+        self.debug(2, "Rxx sum computation complete")
         self.Ryy = self.autocorr_sum_func(self.vp)
-        self.debug(2, "Ryy computation complete")
+        self.debug(2, "Ryy sum computation complete")
         self.Rzz = self.autocorr_sum_func(self.wp)
-        self.debug(2, "Rzz computation complete")
+        self.debug(2, "Rzz sum computation complete")
 
     def autocorr_sum_func(self, obj):
-        acorr = []
+        acovs = []
         self.debug(2, "Starting summation loop")
         try:
-            for lag in range(self.lag):
-                obj_i = obj[-(self.N+lag):][:self.N]
-                obj_im = obj[-self.N:]
+            for lag in range(self.N):
+                obj_i = obj[:self.N-lag]
+                obj_im = pd.Series(obj).shift(-lag).dropna()
                 acov = np.array(obj_i) * np.array(obj_im)
-                var = np.array(obj_i)**2
-                acorr.append(acov.sum() / var.sum() * self.N)
+                acovs.append(acov.sum() / self.N)
+            var = acovs[0]
+            acorr = np.array(acovs) / var
         except:
             self.debug(0, "EXCEPTION: error within summation loop")
-        return np.array(acorr)
+        return acorr
 
     def autocorr_fourier(self, N):
         self.resize_data(-(self.N))
         
         self.Rxx = self.autocorr_fourier_func(self.up)
-        self.debug(2, "Rxx computation complete")
+        self.debug(2, "Rxx fourier computation complete")
         self.Ryy = self.autocorr_fourier_func(self.vp)
-        self.debug(2, "Ryy computation complete")
+        self.debug(2, "Ryy fourier computation complete")
         self.Rzz = self.autocorr_fourier_func(self.wp)
-        self.debug(2, "Rzz computation complete")
+        self.debug(2, "Rzz fourier computation complete")
 
     def autocorr_fourier_func(self, obj):
         self.debug(2, "Starting Fourier computation")
@@ -210,7 +212,7 @@ class VelocityData:
             return
         ax.set_title("Velocity Fluctuations")
         ax.set_xlabel("Time (s)")
-        ax.set_ylabel("$u'_i$")
+        ax.set_ylabel("$u_i$")
         # Make sure last value on x-axis is a whole number
         x_lim_max = np.floor(self.N*self.dt*100)/100
         if not (x_lim_max < 1):
