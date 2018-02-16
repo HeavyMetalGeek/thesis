@@ -134,7 +134,7 @@ class VelocityData:
         if (self.lag > self.N):
             self.lag = self.N
             self.debug(2, "Value for lag reduced to {}".format(self.lag))
-        self.resize_data(-self.lag)
+        self.resize_data(-self.N)
         self.debug(2, "Data reduced to {} points".format(self.lag))
         
         self.Rxx = self.autocorr_sum_func(self.up)
@@ -148,7 +148,7 @@ class VelocityData:
         acovs = []
         self.debug(2, "Starting summation loop")
         try:
-            for lag in range(self.N):
+            for lag in range(self.lag):
                 obj_i = obj[:self.N-lag]
                 obj_im = pd.Series(obj).shift(-lag).dropna()
                 acov = np.array(obj_i) * np.array(obj_im)
@@ -207,7 +207,7 @@ class VelocityData:
             ax.axhline(self.w.mean(), 0, self.N + self.lag, ls='-.', color='k')
         except ValueError:
             self.debug(0, "Plot axis value mismatch:")
-            self.debug(0, "N={}".format(len(self.N)))
+            self.debug(0, "N={}".format(self.N))
             self.debug(0, "u={}".format(len(self.u)))
             return
         ax.set_title("Velocity Fluctuations")
@@ -251,7 +251,7 @@ class VelocityData:
             self.debug(0, "Rzz={}".format(len(self.Rzz)))
             return
         ax.set_title("Velocity Autocorrelation")
-        ax.set_xlabel("Time Lag (s)")
+        ax.set_xlabel("Time Lag $s$ (seconds)")
         ax.set_ylabel("$R_{ii}$")
         ax.set_ylim(-1,1)
         # Write to file if write_path given
@@ -281,7 +281,7 @@ class VelocityData:
             self.debug(0, "Rzz={}".format(len(self.Rzz)))
             return
         ax.set_title("Velocity Autocorrelation")
-        ax.set_xlabel("Time Lag (s)")
+        ax.set_xlabel("Time Lag $s$ (seconds)")
         ax.set_ylabel("$R_{ii}$")
         ax.set_ylim(-1,1)
         # Write to file if write_path given
