@@ -252,7 +252,7 @@ class VelocityData:
             return
         ax.set_title("Velocity Autocorrelation")
         ax.set_xlabel("Time Lag $s$ (seconds)")
-        ax.set_ylabel("$R_{ii}$")
+        ax.set_ylabel("$\\rho(s)$")
         ax.set_ylim(-1,1)
         # Write to file if write_path given
         if (write_path != None):
@@ -282,7 +282,7 @@ class VelocityData:
             return
         ax.set_title("Velocity Autocorrelation")
         ax.set_xlabel("Time Lag $s$ (seconds)")
-        ax.set_ylabel("$R_{ii}$")
+        ax.set_ylabel("$\\rho(s)$")
         ax.set_ylim(-1,1)
         # Write to file if write_path given
         if (write_path != None):
